@@ -4,6 +4,11 @@ from pyhanlp import *
 
 
 class AnalysisQuestion():
+    def __init__(self):
+        self.vocab = 'vocab/vocabulary.txt'
+        self.model = 'model/clf.model'
+        self.classify = 'vocab/question_classification.txt'
+
     def abstract_question(self, question):
         """
         使用hanlp进行分词，将关键词进行词性抽象
@@ -47,7 +52,7 @@ class AnalysisQuestion():
         :RETURN:
         """
         vocab = {}
-        with open('vocab/vocabulary.txt', 'r', encoding='UTF-8')as fread:
+        with open(self.vocab, 'r', encoding='UTF-8')as fread:
             for line in fread:
                 arr = line.rstrip().split(':')
                 vocab[arr[1]] = arr[0]
@@ -56,10 +61,10 @@ class AnalysisQuestion():
         for word in list_sentence:
             if word in vocab:
                 tmp[int(vocab[word])] = 1
-        clf = joblib.load('model/clf.model')
+        clf = joblib.load(self.model)
         index = clf.predict(np.expand_dims(tmp, 0))[0]
         dict_template = {}
-        with open('vocab/question_classification.txt', 'r', encoding='utf-8')as fread:
+        with open(self.classify, 'r', encoding='utf-8')as fread:
             for line in fread:
                 arr_tmp = line.rstrip().split(':')
                 dict_template[arr_tmp[0]] = arr_tmp[1]
