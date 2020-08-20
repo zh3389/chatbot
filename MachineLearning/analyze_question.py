@@ -3,7 +3,7 @@ import numpy as np
 from pyhanlp import *
 
 
-class Chatbot():
+class AnalysisQuestion():
     def abstract_question(self, question):
         """
         使用hanlp进行分词，将关键词进行词性抽象
@@ -77,7 +77,7 @@ class Chatbot():
                 params.append(self.abstractMap[abs_key])
         return params
 
-    def analysis_question(self, question):
+    def analysis(self, question):
         # 打印原始句子
         print('原始句子：{}'.format(question))
         # 关键词进行词性抽象
@@ -91,9 +91,8 @@ class Chatbot():
         return index, finalpatt
 
 
-if __name__=="__main__":
-    chatbot = Chatbot()
-    while True:
-        question=input('请输入你想查询的信息：')   #英雄这部电影讲的什么？
-        index,params=chatbot.analysis_question(question)
-        # 周星驰出演过哪些电影
+if __name__ == "__main__":
+    aq = AnalysisQuestion()
+    question = input('请输入你想查询的信息：')  # 英雄这部电影讲的什么？
+    index, params = aq.analysis(question)
+    print(index, params)
