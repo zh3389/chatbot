@@ -1,4 +1,6 @@
 -i https://pypi.tuna.tsinghua.edu.cn/simple
-scikit-learn
-numpy
+py2neo
 joblib
+numpy
+pyhanlp
+scikit-learn
