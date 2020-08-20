@@ -5,9 +5,9 @@ from pyhanlp import *
 
 class AnalysisQuestion():
     def __init__(self):
-        self.vocab = 'vocab/vocabulary.txt'
-        self.model = 'model/clf.model'
-        self.classify = 'vocab/question_classification.txt'
+        self.vocab = 'MachineLearning/vocab/vocabulary.txt'
+        self.model = 'MachineLearning/model/clf.model'
+        self.classify = 'MachineLearning/vocab/question_classification.txt'
 
     def abstract_question(self, question):
         """
