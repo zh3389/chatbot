@@ -4,7 +4,7 @@
 
 #### 环境搭建
 
-neo4j环境搭建参考: [知识图谱篇](https://github.com/Mrzhang3389/chatbot/tree/master/MachineLearning)
+neo4j环境搭建参考: [知识图谱篇](https://github.com/Mrzhang3389/chatbot/tree/master/KnowledgeGraph)
 
 其它环境:
 
