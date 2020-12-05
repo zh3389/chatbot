@@ -1,27 +1,24 @@
+import jieba
 import joblib
 import numpy as np
-from pyhanlp import *
+import jieba.posseg as pseg
 
 
 class AnalysisQuestion():
     def __init__(self):
         self.vocab = 'MachineLearning/vocab/vocabulary.txt'
+        jieba.load_userdict(self.vocab)  # 为jieba添加一些不常用的分词词汇
         self.model = 'MachineLearning/model/clf.model'
         self.classify = 'MachineLearning/vocab/question_classification.txt'
 
     def abstract_question(self, question):
         """
-        使用hanlp进行分词，将关键词进行词性抽象
+        使用jieba进行分词，将关键词进行词性抽象
         :param question:
         :RETURN:
         """
         self.abstractMap = {}
-        print("=" * 30 + "HanLP分词" + "=" * 30)
-        # 中文分词
-        segment = HanLP.newSegment().enableCustomDictionary(True)
-        list_word = segment.seg(question)
-        print(list_word)
-        print("-" * 70)
+        list_word = pseg.lcut(question)  # 中文分词
         abstractQuery = ''
         nr_count = 0
         for item in list_word:

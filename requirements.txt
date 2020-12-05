@@ -2,5 +2,5 @@
 py2neo
 joblib
 numpy
-pyhanlp
+jieba
 scikit-learn
