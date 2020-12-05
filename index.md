@@ -2,7 +2,7 @@
 
 ## 最终效果
 
-![效果图](https://raw.githubusercontent.com/Mrzhang3389/chatbot/master/assets/example.png)
+<img src="https://raw.githubusercontent.com/Mrzhang3389/chatbot/master/assets/example.png" style="zoom:50%;" />
 
 ## 知识图谱篇
 
@@ -34,19 +34,17 @@
 - 高斯朴素贝叶斯原理根据自身情况学习: [参考维基百科](https://zh.wikipedia.org/wiki/%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8#%E9%AB%98%E6%96%AF%E5%96%AE%E7%B4%94%E8%B2%9D%E6%B0%8F)
 - Python下scikit-learn包里面的naive_bayes的使用
 - 准备模型的训练数据: [数据参考](https://github.com/Mrzhang3389/chatbot/tree/master/MachineLearning/train_model/data)
-- 训练问题分析模型代码参考: 训练问题分析模型
-- 使用问题分析模型代码参考: [使用问题分析模型](https://github.com/Mrzhang3389/chatbot/blob/master/MachineLearning/analyze_question.py)
 
 #### 操作步骤
 
 1. 对允许用户提问的问题进行分类
-2. 创造用户提问的问题模板
-3. 训练问题分类模型
-4. 使用问题分类模型得到用户的意图
+2. 创造用户提问的问题模板, 即准备工作中的准备模型的训练数据
+3. 训练问题分类模型: 代码参考
+4. 使用问题分类模型得到用户的意图: [代码参考](https://github.com/Mrzhang3389/chatbot/blob/master/MachineLearning/analyze_question.py)
 
-#### 机器学习所达到的效果
+#### 机器学习所达到的效果:
 
-
+<img src="机器学习问题分析效果图.png" alt="机器学习问题分析效果图" style="zoom:30%;" />
 
 ## 机器学习训练模型以及优化篇
 
