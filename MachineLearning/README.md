@@ -48,3 +48,10 @@ python run analyze_question.py
 
 ![example](assets/example.png)
 
+#### 模型优化篇
+
+1. 添加问题模板的类别
+2. 增加每个问题模板类别的内容
+3. 为分词器添加 不常见词辅助分词: [词参考](https://github.com/Mrzhang3389/chatbot/tree/master/MachineLearning/participle_dict)
+4. 为分词器添加 自定义词和词性
+5. ......

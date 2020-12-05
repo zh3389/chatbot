@@ -2,6 +2,8 @@
 
 **如果本项目对你学习构建一个聊天机器人有帮助, 欢迎 Start...**
 
+#### 实现详细过程参考: [Chatbot GitHub Pages](https://mrzhang3389.github.io/chatbot/)
+
 #### 如何构建
 
 1. 先构建知识库参考[知识图谱](https://github.com/Mrzhang3389/chatbot/tree/master/KnowledgeGraph)
@@ -13,10 +15,6 @@
 4. 最后优化模型中的细节和捕获异常
 
 #### 环境搭建
-
-neo4j环境搭建参考: [知识图谱篇](https://github.com/Mrzhang3389/chatbot/tree/master/KnowledgeGraph)
-
-其它环境:
 
 ```bash
 pip install -r requirements.txt
