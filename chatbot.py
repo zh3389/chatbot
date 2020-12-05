@@ -6,7 +6,7 @@ if __name__ == "__main__":
     ga = Get_answer()
     while True:
         question = input('请输入你想查询的信息：')  # 成龙和李连杰合作过的电影有哪些？
-        index, params = aq.analysis(question)
+        index, params = aq.analysis_question(question)
         answers = ga.get_data(index, params)
         print('答案:')
         for ans in answers:

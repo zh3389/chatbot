@@ -1,4 +1,5 @@
 -i https://pypi.tuna.tsinghua.edu.cn/simple
 joblib
 numpy
-pyhanlp
+scikit-learn
+jieba

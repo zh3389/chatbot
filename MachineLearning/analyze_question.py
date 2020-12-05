@@ -1,4 +1,4 @@
-import jieba
+import json
 import joblib
 import numpy as np
 import jieba.posseg as pseg
@@ -6,10 +6,21 @@ import jieba.posseg as pseg
 
 class AnalysisQuestion():
     def __init__(self):
-        self.vocab = 'MachineLearning/vocab/vocabulary.txt'
-        jieba.load_userdict(self.vocab)  # 为jieba添加一些不常用的分词词汇
-        self.model = 'MachineLearning/model/clf.model'
-        self.classify = 'MachineLearning/vocab/question_classification.txt'
+        self.vocab_path = './MachineLearning/model/vocabulary.json'
+        self.model_path = './MachineLearning/model/clf.model'
+        self.question_classification_path = './MachineLearning/model/question_classification.json'
+        self.vocab = self.load_vocab()
+        self.question_class = self.load_question_classification()
+
+    def load_vocab(self):
+        with open(self.vocab_path, "r") as f:
+            vocab = json.loads(f.read())
+        return vocab
+
+    def load_question_classification(self):
+        with open(self.question_classification_path, "r") as f:
+            question_classification = json.loads(f.read())
+        return question_classification
 
     def abstract_question(self, question):
         """
@@ -48,24 +59,14 @@ class AnalysisQuestion():
         :param sentence:
         :RETURN:
         """
-        vocab = {}
-        with open(self.vocab, 'r', encoding='UTF-8')as fread:
-            for line in fread:
-                arr = line.rstrip().split(':')
-                vocab[arr[1]] = arr[0]
-        tmp = np.zeros(len(vocab))
+        tmp = np.zeros(len(self.vocab))
         list_sentence = sentence.split(' ')
         for word in list_sentence:
-            if word in vocab:
-                tmp[int(vocab[word])] = 1
-        clf = joblib.load(self.model)
+            if word in self.vocab:
+                tmp[int(self.vocab[word])] = 1
+        clf = joblib.load(self.model_path)
         index = clf.predict(np.expand_dims(tmp, 0))[0]
-        dict_template = {}
-        with open(self.classify, 'r', encoding='utf-8')as fread:
-            for line in fread:
-                arr_tmp = line.rstrip().split(':')
-                dict_template[arr_tmp[0]] = arr_tmp[1]
-        return int(index), dict_template[index]
+        return int(index), self.question_class[index]
 
     def query_extention(self, temp):
         """
@@ -79,16 +80,12 @@ class AnalysisQuestion():
                 params.append(self.abstractMap[abs_key])
         return params
 
-    def analysis(self, question):
-        # 打印原始句子
+    def analysis_question(self, question):
         print('原始句子：{}'.format(question))
-        # 关键词进行词性抽象
         abstr = self.abstract_question(question)
         print('句子抽象化结果：{}'.format(abstr))
-        # 句子抽象获取对应模板
         index, strpatt = self.query_classify(abstr)
         print('句子对应的索引{}\t模板：{}'.format(index, strpatt))
-        # 模板还原成句子
         finalpatt = self.query_extention(strpatt)
         return index, finalpatt
 
@@ -96,5 +93,5 @@ class AnalysisQuestion():
 if __name__ == "__main__":
     aq = AnalysisQuestion()
     question = input('请输入你想查询的信息：')  # 英雄这部电影讲的什么？
-    index, params = aq.analysis(question)
+    index, params = aq.analysis_question(question)
     print(index, params)
