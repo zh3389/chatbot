@@ -2,7 +2,7 @@
 
 **如果本项目对你学习构建一个聊天机器人有帮助, 欢迎 Start...**
 
-#### 实现详细过程参考: [Chatbot](https://mrzhang3389.github.io/chatbot/)
+### 实现详细过程参考: [Chatbot](https://mrzhang3389.github.io/chatbot/)
 
 #### 如何构建
 
