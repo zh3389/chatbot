@@ -4,16 +4,6 @@
 
 ### 实现详细过程参考: [Chatbot](https://mrzhang3389.github.io/chatbot/)
 
-#### 如何构建
-
-1. 先构建知识库参考[知识图谱](https://github.com/Mrzhang3389/chatbot/tree/master/KnowledgeGraph)
-
-2. 再构建问题处理模块参考[机器学习](https://github.com/Mrzhang3389/chatbot/tree/master/MachineLearning)
-
-3. 然后 问题处理模块 + 答案搜索模块 = 基于知识库的问答机器人
-
-4. 最后优化模型中的细节和捕获异常
-
 #### 环境搭建
 
 ```bash
