@@ -1,9 +1,11 @@
 ## 电影知识库问答机器人
+
+项目代码参考: [chatbot](https://github.com/Mrzhang3389/chatbot)
+
 ## 最终效果
 
 <img src="https://raw.githubusercontent.com/Mrzhang3389/chatbot/master/assets/example.png" style="zoom:50%;" />
 
-项目代码参考: [chatbot](https://github.com/Mrzhang3389/chatbot)
 
 ## 知识图谱篇
 
@@ -23,14 +25,117 @@
   - Neo4j Docker版:  `docker pull neo4j`
 - 简单的Neo4j语法知识: [Neo4j Cypher](https://neo4j.com/docs/cypher-refcard/current/)
 
-#### 操作步骤
+#### 数据导入
 
-1. 运行你的Neo4j图数据库
-2. 导入电影知识库数据: [数据导入](https://github.com/Mrzhang3389/chatbot/tree/master/KnowledgeGraph#%E4%BA%8C-%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE)
-3. 测试数据是否导入正常: [测试知识图谱](https://github.com/Mrzhang3389/chatbot/tree/master/KnowledgeGraph#%E4%B8%89-%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE)
-4. 答案查找的Python代码参考: [答案搜索](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/get_answer.py)
+###### 零. 运行你的Neo4j图数据库
 
-#### 知识图谱所达到的效果
+启动neo4j, 打开浏览器并访问 [http://localhost:7474/](http://localhost:7474/)
+
+将以下五个数据文件移动至 neo4j 目录下的 import目录中
+
+###### 一. 准备数据
+[all data](https://github.com/Mrzhang3389/chatbot/tree/master/KnowledgeGraph/movie_data)
+
+[genre.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/genre.csv) 用于记录所有电影的类别
+
+| gid  | gname |
+| ---- | ----- |
+| 12   | 冒险  |
+| 14   | 奇幻  |
+| ...  | ...   |
+
+[person.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/person.csv) 用于记录所有演员的信息
+
+| pid    | birth      | death      | name   | blography                           | birthplace                         |
+| ------ | ---------- | ---------- | ------ | ----------------------------------- | ---------------------------------- |
+| 643    | 1965-12-31 | \N         | 巩俐   | 新加坡华裔女演员，祖籍中国山东，... | Shenyang, Liaoning Province, China |
+| 695    | 1937-03-16 | 1999-04-14 | 乔宏   |                                     | Shanghai, China                    |
+| ...... | ......     | ......     | ...... | ......                              | ......                             |
+
+[movie.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/movie.csv) 用于记录所有电影的信息
+
+| mid    | title             | introduction                                                 | rating       | releasedate |
+| ------ | ----------------- | ------------------------------------------------------------ | ------------ | ----------- |
+| 13     | Forrest Gump      | 阿甘（汤姆·汉克斯 Tom Hanks 饰）于二战结束后不久出生在美国南方...... | 8.3000001907 | 1994-07-06  |
+| 24     | Kill Bill: Vol. 1 | 新娘（乌玛·瑟曼饰）曾经是致命毒蛇暗杀小组（D．I．V．A．S）的一员...... | 7.8000001907 | 2003-10-10  |
+| ...... | ......            | ......                                                       | ......       | ......      |
+
+[person_to_movie.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/person_to_movie.csv) 用于记录所有电影的参演人员的 关系信息 1对N
+
+| pid    | mid    |
+| ------ | ------ |
+| 163441 | 13     |
+| 240171 | 24     |
+| ...... | ...... |
+
+[movie_to_genre.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/movie_to_genre.csv) 用于记录所有电影 是什么类型 关系信息 1对N
+
+| mid    | gid    |
+| ------ | ------ |
+| 79     | 12     |
+| 82     | 12     |
+| ...... | ...... |
+
+###### 二. 导入数据
+在命令行输入栏导入数据
+
+1. 导入[genre.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/genre.csv) 用于记录所有电影的类别
+
+   ```sql
+   //导入节点 电影类型  == 注意类型转换
+   LOAD CSV WITH HEADERS  FROM "file:///genre.csv" AS line
+   MERGE (p:Genre{gid:toInteger(line.gid),name:line.gname})
+   ```
+
+2. 导入[person.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/person.csv) 用于记录所有演员的信息
+
+   ```sql
+   LOAD CSV WITH HEADERS FROM 'file:///person.csv' AS line
+   MERGE (p:Person { pid:toInteger(line.pid),birth:line.birth,
+   death:line.death,name:line.name,
+   biography:line.biography,
+   birthplace:line.birthplace})
+   ```
+
+3. 导入[movie.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/movie.csv) 用于记录所有电影的信息
+
+   ```sql
+   LOAD CSV WITH HEADERS  FROM "file:///movie.csv" AS line  
+   MERGE (p:Movie{mid:toInteger(line.mid),title:line.title,introduction:line.introduction,
+   rating:toFloat(line.rating),releasedate:line.releasedate})
+   ```
+
+4. 导入[person_to_movie.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/person_to_movie.csv) 用于记录所有电影的参演人员的 关系信息 1对N
+
+   ```sql
+   LOAD CSV WITH HEADERS FROM "file:///person_to_movie.csv" AS line 
+   match (from:Person{pid:toInteger(line.pid)}),(to:Movie{mid:toInteger(line.mid)})  
+   merge (from)-[r:actedin{pid:toInteger(line.pid),mid:toInteger(line.mid)}]->(to)
+   ```
+
+5. 导入[movie_to_genre.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/movie_to_genre.csv) 用于记录所有电影 是什么类型 关系信息 1对N
+
+   ```sql
+   LOAD CSV WITH HEADERS FROM "file:///movie_to_genre.csv" AS line
+   match (from:Movie{mid:toInteger(line.mid)}),(to:Genre{gid:toInteger(line.gid)})  
+   merge (from)-[r:is{mid:toInteger(line.mid),gid:toInteger(line.gid)}]->(to)
+   ```
+
+##### 三. 使用数据
+
+问：周星驰都演了哪些电影？ 
+
+```sql
+match(n:Person)-[:actedin]->(m:Movie) where n.name='周星驰' return m.title
+```
+
+查询结果展示
+
+![result](https://raw.githubusercontent.com/Mrzhang3389/chatbot/master/KnowledgeGraph/assets/result.png)
+
+答案查找的Python代码参考: [答案搜索](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/get_answer.py)
+
+#### 知识图谱效果
 
 ![知识图谱效果图](知识图谱效果图.png)
 
@@ -45,7 +150,7 @@
 - 高斯朴素贝叶斯原理根据自身情况学习: [参考维基百科](https://zh.wikipedia.org/wiki/%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8#%E9%AB%98%E6%96%AF%E5%96%AE%E7%B4%94%E8%B2%9D%E6%B0%8F)
 - Python下scikit-learn包里面的naive_bayes的使用
 
-#### 模型训练篇
+#### 模型训练
 
 1. 确定你问答中 用户提问的问题中的实体, 并给它**自定义词性**.
 
@@ -79,7 +184,7 @@
 
 6. 运行完`train.py`因为数据量不大, 模型秒训练完毕.  直接**进入下一步使用阶段.**  使用问题分类模型得到用户的意图:  [使用代码参考](https://github.com/Mrzhang3389/chatbot/blob/master/MachineLearning/analyze_question.py)
 
-#### 模型使用篇
+#### 模型使用
 
 ```shell
 python run analyze_question.py
@@ -89,7 +194,7 @@ python run analyze_question.py
 
 <img src="机器学习问题分析效果图.png" alt="机器学习问题分析效果图" style="zoom:25%;" />
 
-#### 模型优化篇
+#### 模型优化
 
 1. 添加问题模板的类别
 2. 增加每个问题模板类别的内容
