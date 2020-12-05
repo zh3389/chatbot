@@ -79,18 +79,15 @@
 
 6. 运行完`train.py`因为数据量不大, 模型秒训练完毕.  直接**进入下一步使用阶段.**  使用问题分类模型得到用户的意图:  [使用代码参考](https://github.com/Mrzhang3389/chatbot/blob/master/MachineLearning/analyze_question.py)
 
-
 #### 模型使用篇
 
 ```shell
 python run analyze_question.py
 ```
 
-输入你想要问的问题
+#### 机器学习模型效果:
 
-得到问题分析结果, 如下图演示:
-
-![example](https://raw.githubusercontent.com/Mrzhang3389/chatbot/master/MachineLearning/assets/example.png)
+<img src="机器学习问题分析效果图.png" alt="机器学习问题分析效果图" style="zoom:25%;" />
 
 #### 模型优化篇
 
@@ -100,7 +97,3 @@ python run analyze_question.py
 4. 为分词器添加 自定义词和词性
 5. ......
 
-
-#### 机器学习模型效果:
-
-<img src="机器学习问题分析效果图.png" alt="机器学习问题分析效果图" style="zoom:25%;" />
