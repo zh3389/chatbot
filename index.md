@@ -41,6 +41,8 @@
    | 14   | 奇幻  |
    | ...  | ...   |
 
+   
+
    [person.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/person.csv) 用于记录所有演员的信息
 
    | pid    | birth      | death      | name   | blography                           | birthplace                         |
@@ -48,6 +50,8 @@
    | 643    | 1965-12-31 | \N         | 巩俐   | 新加坡华裔女演员，祖籍中国山东，... | Shenyang, Liaoning Province, China |
    | 695    | 1937-03-16 | 1999-04-14 | 乔宏   |                                     | Shanghai, China                    |
    | ...... | ......     | ......     | ...... | ......                              | ......                             |
+
+   
 
    [movie.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/movie.csv) 用于记录所有电影的信息
 
@@ -57,6 +61,8 @@
    | 24     | Kill Bill: Vol. 1 | 新娘（乌玛·瑟曼饰）曾经是致命毒蛇暗杀小组（D．I．V．A．S）的一员...... | 7.8000001907 | 2003-10-10  |
    | ...... | ......            | ......                                                       | ......       | ......      |
 
+   
+
    [person_to_movie.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/person_to_movie.csv) 用于记录所有电影的参演人员的 关系信息 1对N
 
    | pid    | mid    |
@@ -64,6 +70,8 @@
    | 163441 | 13     |
    | 240171 | 24     |
    | ...... | ...... |
+
+   
 
    [movie_to_genre.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/movie_to_genre.csv) 用于记录所有电影 是什么类型 关系信息 1对N
 
@@ -85,6 +93,8 @@
    MERGE (p:Genre{gid:toInteger(line.gid),name:line.gname})
    ```
 
+   
+
    导入[person.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/person.csv) 用于记录所有演员的信息
 
    ```
@@ -95,6 +105,8 @@
    birthplace:line.birthplace})
    ```
 
+   
+
    导入[movie.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/movie.csv) 用于记录所有电影的信息
 
    ```
@@ -103,6 +115,8 @@
    rating:toFloat(line.rating),releasedate:line.releasedate})
    ```
 
+   
+
    导入[person_to_movie.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/person_to_movie.csv) 用于记录所有电影的参演人员的 关系信息 1对N
 
    ```
@@ -110,6 +124,8 @@
    match (from:Person{pid:toInteger(line.pid)}),(to:Movie{mid:toInteger(line.mid)})  
    merge (from)-[r:actedin{pid:toInteger(line.pid),mid:toInteger(line.mid)}]->(to)
    ```
+
+   
 
    导入[movie_to_genre.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/movie_to_genre.csv) 用于记录所有电影 是什么类型 关系信息 1对N
 
