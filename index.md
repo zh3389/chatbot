@@ -49,22 +49,11 @@
 
 1. 对允许用户提问的问题进行分类
 2. 创造用户提问的问题模板, 即准备工作中的准备模型的训练数据
-3. 训练问题分类模型: 代码参考
+3. 训练问题分类模型: [代码参考](https://github.com/Mrzhang3389/chatbot/blob/master/MachineLearning/train.py)
 4. 使用问题分类模型得到用户的意图: [代码参考](https://github.com/Mrzhang3389/chatbot/blob/master/MachineLearning/analyze_question.py)
 
 #### 机器学习所达到的效果:
 
 <img src="机器学习问题分析效果图.png" alt="机器学习问题分析效果图" style="zoom:25%;" />
 
-## 机器学习训练模型以及优化篇
-
-#### 准备工作
-
-
-
-#### 操作步骤
-
-
-
-#### ......
-
+## 机器学习训练模型详细篇: [模型训练文档](https://github.com/Mrzhang3389/chatbot/tree/master/MachineLearning#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AF%87)
