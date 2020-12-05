@@ -27,13 +27,13 @@
 
 #### 数据导入
 
-###### 零. 运行你的Neo4j图数据库
+0. 运行你的Neo4j图数据库
 
 启动neo4j, 打开浏览器并访问 [http://localhost:7474/](http://localhost:7474/)
 
 将以下五个数据文件移动至 neo4j 目录下的 import目录中
 
-###### 一. 准备数据
+1. 准备数据
 [all data](https://github.com/Mrzhang3389/chatbot/tree/master/KnowledgeGraph/movie_data)
 
 [genre.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/genre.csv) 用于记录所有电影的类别
@@ -76,10 +76,10 @@
 | 82     | 12     |
 | ...... | ...... |
 
-###### 二. 导入数据
+2. 导入数据
 在命令行输入栏导入数据
 
-1. 导入[genre.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/genre.csv) 用于记录所有电影的类别
+导入[genre.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/genre.csv) 用于记录所有电影的类别
 
    ```sql
    //导入节点 电影类型  == 注意类型转换
@@ -87,7 +87,7 @@
    MERGE (p:Genre{gid:toInteger(line.gid),name:line.gname})
    ```
 
-2. 导入[person.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/person.csv) 用于记录所有演员的信息
+导入[person.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/person.csv) 用于记录所有演员的信息
 
    ```sql
    LOAD CSV WITH HEADERS FROM 'file:///person.csv' AS line
@@ -97,7 +97,7 @@
    birthplace:line.birthplace})
    ```
 
-3. 导入[movie.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/movie.csv) 用于记录所有电影的信息
+导入[movie.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/movie.csv) 用于记录所有电影的信息
 
    ```sql
    LOAD CSV WITH HEADERS  FROM "file:///movie.csv" AS line  
@@ -105,7 +105,7 @@
    rating:toFloat(line.rating),releasedate:line.releasedate})
    ```
 
-4. 导入[person_to_movie.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/person_to_movie.csv) 用于记录所有电影的参演人员的 关系信息 1对N
+导入[person_to_movie.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/person_to_movie.csv) 用于记录所有电影的参演人员的 关系信息 1对N
 
    ```sql
    LOAD CSV WITH HEADERS FROM "file:///person_to_movie.csv" AS line 
@@ -113,7 +113,7 @@
    merge (from)-[r:actedin{pid:toInteger(line.pid),mid:toInteger(line.mid)}]->(to)
    ```
 
-5. 导入[movie_to_genre.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/movie_to_genre.csv) 用于记录所有电影 是什么类型 关系信息 1对N
+导入[movie_to_genre.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/movie_to_genre.csv) 用于记录所有电影 是什么类型 关系信息 1对N
 
    ```sql
    LOAD CSV WITH HEADERS FROM "file:///movie_to_genre.csv" AS line
@@ -121,7 +121,7 @@
    merge (from)-[r:is{mid:toInteger(line.mid),gid:toInteger(line.gid)}]->(to)
    ```
 
-##### 三. 使用数据
+3. 使用数据
 
 问：周星驰都演了哪些电影？ 
 
