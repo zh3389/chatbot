@@ -14,6 +14,7 @@ class GenerQuestionClassification():
             self.save_vocab()
 
     def save_vocab(self):
+        '''这部分 dict 需要和训练数据顺序对应'''
         dic = {'0': 'nm 评分',
                '1': 'nm 上映时间',
                '2': 'nm 类型',
@@ -30,11 +31,12 @@ class GenerQuestionClassification():
                '13': 'nnt 出生日期',
                }
         with open(self.question_classification_path, 'w') as f:
-            json.dump(dic, f)  # 会在目录下生成一个*.json的文件，文件内容是dict数据转成的json数据  ensure_ascii=False
+            json.dump(dic, f, ensure_ascii=False)  # 会在目录下生成一个*.json的文件，文件内容是dict数据转成的json数据  ensure_ascii=False
         print("save question classification success...")
 
 
 class GenerVocab():
+    '''生成所有训练数据的vocab文件, 使用模型的时候需要. 变更数据的时候需要重新生成.'''
     def __init__(self):
         self.data_path = "./data/"
         self.save_vocab_path = "model/vocabulary.json"

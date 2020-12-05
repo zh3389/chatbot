@@ -3,7 +3,7 @@ from py2neo import *
 
 class Get_answer():
     def __init__(self):
-        self.graph = Graph("http://localhost:7474", username="neo4j", password="your password")
+        self.graph = Graph("http://localhost:7474", username="neo4j", password="123")
 
     def get_data(self, index, params):
         query = ''

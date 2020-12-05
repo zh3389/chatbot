@@ -1,2 +1,0 @@
--i https://pypi.tuna.tsinghua.edu.cn/simple
-py2neo
