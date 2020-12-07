@@ -4,6 +4,9 @@
 
 ### 实现详细过程参考: [Chatbot](https://mrzhang3389.github.io/chatbot/)
 
+#### 整体思路
+![思路](assets/chatbot思路.png)
+
 #### 环境搭建
 
 ```bash
