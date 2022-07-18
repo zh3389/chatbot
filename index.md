@@ -1,10 +1,10 @@
 ## 电影知识库问答机器人
 
-#### 项目代码参考: [chatbot](https://github.com/Mrzhang3389/chatbot)
+#### 项目代码参考: [chatbot](https://github.com/futurehear/chatbot)
 
 ## 最终效果
 
-<img src="https://raw.githubusercontent.com/Mrzhang3389/chatbot/master/assets/example.png" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/futurehear/chatbot/master/assets/example.png" style="zoom:50%;" />
 
 
 ## 知识图谱篇
@@ -15,7 +15,7 @@
 
 #### 准备工作
 
-- 电影知识库的数据参考: [movie data](https://github.com/Mrzhang3389/chatbot/tree/master/KnowledgeGraph/movie_data)
+- 电影知识库的数据参考: [movie data](https://github.com/futurehear/chatbot/tree/master/KnowledgeGraph/movie_data)
 - Neo4j图数据库
   - Neo4j官网: [Neo4j home](https://neo4j.com/)
   - Neo4j桌面版: [Neo4j Desktop](https://neo4j.com/download-center/#desktop)
@@ -33,7 +33,7 @@
 
 2. 准备数据  
 
-   [genre.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/genre.csv) 用于记录所有电影的类别
+   [genre.csv](https://github.com/futurehear/chatbot/blob/master/KnowledgeGraph/movie_data/genre.csv) 用于记录所有电影的类别
 
    | gid  | gname |
    | ---- | ----- |
@@ -43,7 +43,7 @@
 
    
 
-   [person.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/person.csv) 用于记录所有演员的信息
+   [person.csv](https://github.com/futurehear/chatbot/blob/master/KnowledgeGraph/movie_data/person.csv) 用于记录所有演员的信息
 
    | pid    | birth      | death      | name   | blography                           | birthplace                         |
    | ------ | ---------- | ---------- | ------ | ----------------------------------- | ---------------------------------- |
@@ -53,7 +53,7 @@
 
    
 
-   [movie.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/movie.csv) 用于记录所有电影的信息
+   [movie.csv](https://github.com/futurehear/chatbot/blob/master/KnowledgeGraph/movie_data/movie.csv) 用于记录所有电影的信息
 
    | mid    | title             | introduction                                                 | rating       | releasedate |
    | ------ | ----------------- | ------------------------------------------------------------ | ------------ | ----------- |
@@ -63,7 +63,7 @@
 
    
 
-   [person_to_movie.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/person_to_movie.csv) 用于记录所有电影的参演人员的 关系信息 1对N
+   [person_to_movie.csv](https://github.com/futurehear/chatbot/blob/master/KnowledgeGraph/movie_data/person_to_movie.csv) 用于记录所有电影的参演人员的 关系信息 1对N
 
    | pid    | mid    |
    | ------ | ------ |
@@ -73,7 +73,7 @@
 
    
 
-   [movie_to_genre.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/movie_to_genre.csv) 用于记录所有电影 是什么类型 关系信息 1对N
+   [movie_to_genre.csv](https://github.com/futurehear/chatbot/blob/master/KnowledgeGraph/movie_data/movie_to_genre.csv) 用于记录所有电影 是什么类型 关系信息 1对N
 
    | mid    | gid    |
    | ------ | ------ |
@@ -85,7 +85,7 @@
 
    在命令行输入栏导入数据
 
-   导入[genre.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/genre.csv) 用于记录所有电影的类别
+   导入[genre.csv](https://github.com/futurehear/chatbot/blob/master/KnowledgeGraph/movie_data/genre.csv) 用于记录所有电影的类别
 
    ```
    //导入节点 电影类型  == 注意类型转换
@@ -95,7 +95,7 @@
 
    
 
-   导入[person.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/person.csv) 用于记录所有演员的信息
+   导入[person.csv](https://github.com/futurehear/chatbot/blob/master/KnowledgeGraph/movie_data/person.csv) 用于记录所有演员的信息
 
    ```
    LOAD CSV WITH HEADERS FROM 'file:///person.csv' AS line
@@ -107,7 +107,7 @@
 
    
 
-   导入[movie.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/movie.csv) 用于记录所有电影的信息
+   导入[movie.csv](https://github.com/futurehear/chatbot/blob/master/KnowledgeGraph/movie_data/movie.csv) 用于记录所有电影的信息
 
    ```
    LOAD CSV WITH HEADERS  FROM "file:///movie.csv" AS line  
@@ -117,7 +117,7 @@
 
    
 
-   导入[person_to_movie.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/person_to_movie.csv) 用于记录所有电影的参演人员的 关系信息 1对N
+   导入[person_to_movie.csv](https://github.com/futurehear/chatbot/blob/master/KnowledgeGraph/movie_data/person_to_movie.csv) 用于记录所有电影的参演人员的 关系信息 1对N
 
    ```
    LOAD CSV WITH HEADERS FROM "file:///person_to_movie.csv" AS line 
@@ -127,7 +127,7 @@
 
    
 
-   导入[movie_to_genre.csv](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/movie_data/movie_to_genre.csv) 用于记录所有电影 是什么类型 关系信息 1对N
+   导入[movie_to_genre.csv](https://github.com/futurehear/chatbot/blob/master/KnowledgeGraph/movie_data/movie_to_genre.csv) 用于记录所有电影 是什么类型 关系信息 1对N
 
    ```
    LOAD CSV WITH HEADERS FROM "file:///movie_to_genre.csv" AS line
@@ -143,11 +143,11 @@
    match(n:Person)-[:actedin]->(m:Movie) where n.name='周星驰' return m.title
    ```
 
-   答案查找的Python代码参考: [答案搜索](https://github.com/Mrzhang3389/chatbot/blob/master/KnowledgeGraph/get_answer.py)
+   答案查找的Python代码参考: [答案搜索](https://github.com/futurehear/chatbot/blob/master/KnowledgeGraph/get_answer.py)
    
    查询结果展示
 
-<img src="https://raw.githubusercontent.com/Mrzhang3389/chatbot/master/assets/kg_result.png" alt="result" style="zoom:75%;" />
+<img src="https://raw.githubusercontent.com/futurehear/chatbot/master/assets/kg_result.png" alt="result" style="zoom:75%;" />
 
 #### 知识图谱效果
 
@@ -172,7 +172,7 @@
 
    后期需要添加对应的词和词性到分词器里面, 便于分词器能对不认识的词正常分词.
 
-   ![example2](https://raw.githubusercontent.com/Mrzhang3389/chatbot/master/assets/ml_example2.png)
+   ![example2](https://raw.githubusercontent.com/futurehear/chatbot/master/assets/ml_example2.png)
 
 2. 将问答机器人可以提问的问题抽象为问题模板, 并为机器学习模型 人工**造训练数据**.
 
@@ -180,23 +180,23 @@
 
    问题类别越多, 类别里的内容越多, 问答机器人能回答的问题就越准确越详细.
 
-   <img src="https://raw.githubusercontent.com/Mrzhang3389/chatbot/master/assets/ml_example3.png" alt="example3" style="zoom:50%;" />
+   <img src="https://raw.githubusercontent.com/futurehear/chatbot/master/assets/ml_example3.png" alt="example3" style="zoom:50%;" />
 
 3. 为当前 问题模板的所有数据分词并**生成Tokenzer**, 即将每一个词用数字来表示, 以便于送入机器学习模型计算.
 
    如果增加数据, 或更换数据, 需要重新生成该文件.
 
-   ![example4](https://raw.githubusercontent.com/Mrzhang3389/chatbot/master/assets/ml_example4.png)
+   ![example4](https://raw.githubusercontent.com/futurehear/chatbot/master/assets/ml_example4.png)
 
 4. 为所有问题模板编写**问题答案查找**的一个字典文件, 用于最后查找对应类别问题的答案. 
 
    `注意,此处问题模板类别的顺序应和第2步中的问题顺序类别一致.`
 
-   ![example5](https://raw.githubusercontent.com/Mrzhang3389/chatbot/master/assets/ml_example5.png)
+   ![example5](https://raw.githubusercontent.com/futurehear/chatbot/master/assets/ml_example5.png)
 
-5. 待`前两步`准备好后, 直接**执行 `~/MachineLearning/train.py`** 会自动生成第 3 步的文件, 第 4 步的文件需手动修改 `~/MachineLearning/train.py`里的字典才可生成正确的 dict, 训练问题分类模型: [训练代码参考](https://github.com/Mrzhang3389/chatbot/blob/master/MachineLearning/train.py)
+5. 待`前两步`准备好后, 直接**执行 `~/MachineLearning/train.py`** 会自动生成第 3 步的文件, 第 4 步的文件需手动修改 `~/MachineLearning/train.py`里的字典才可生成正确的 dict, 训练问题分类模型: [训练代码参考](https://github.com/futurehear/chatbot/blob/master/MachineLearning/train.py)
 
-6. 运行完`train.py`因为数据量不大, 模型秒训练完毕.  直接**进入下一步使用阶段.**  使用问题分类模型得到用户的意图:  [使用代码参考](https://github.com/Mrzhang3389/chatbot/blob/master/MachineLearning/analyze_question.py)
+6. 运行完`train.py`因为数据量不大, 模型秒训练完毕.  直接**进入下一步使用阶段.**  使用问题分类模型得到用户的意图:  [使用代码参考](https://github.com/futurehear/chatbot/blob/master/MachineLearning/analyze_question.py)
 
 #### 模型使用
 
@@ -212,7 +212,7 @@ python run analyze_question.py
 
 1. 添加问题模板的类别
 2. 增加每个问题模板类别的内容
-3. 为分词器添加 不常见词辅助分词: [词参考](https://github.com/Mrzhang3389/chatbot/tree/master/MachineLearning/participle_dict)
+3. 为分词器添加 不常见词辅助分词: [词参考](https://github.com/futurehear/chatbot/tree/master/MachineLearning/participle_dict)
 4. 为分词器添加 自定义词和词性
 5. ......
 
